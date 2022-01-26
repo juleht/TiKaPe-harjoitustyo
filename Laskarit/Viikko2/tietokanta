@@ -1,0 +1,164 @@
+# elikkä yhden suhde moneen jokaisella videolla
+# on vain yksi lataaja
+# mutta lataajalla voi olla monta videota
+# tällöin REFERENCES tulee sille puollelle jolla on monta.
+
+# monen suhde moneen
+# elikkä käyttäjällä voi olla monta tilaajaa
+# ja käyttäjä voidaan olla tilattu monta kertaa
+# tarvitaan uusi taulu
+
+# missään sarakkeessa ei saa olla listaa tiedoista
+
+CREATE TABLE kayttaja (
+    id INTEGER PRIMARY KEY,
+    kayttajanimi TEXT,
+    salasana TEXT
+);
+
+CREATE TABLE video (
+    id INTEGER PRIMARY KEY,
+    kayttaja_id INTEGER REFERENCES kayttaja,
+    nimi TEXT,
+    kuvaus TEXT,
+    julkaisupaiva DATETIME,
+    arvioitu BOOLEAN
+);
+
+CREATE TABLE katselut (
+    id INTEGER PRIMARY KEY,
+    video_id INTEGER REFERENCES video,
+    katselukerta INTEGER
+);
+
+CREATE TABLE kommenttivideo (
+    id INTEGER PRIMARY KEY,
+    kommentti_id INTEGER REFERENCES kommentti,
+    video_id INTEGER REFERENCES video
+);
+
+CREATE TABLE kayttäjäkommentti (
+    id INTEGER PRIMARY KEY,
+    kayttaja_id INTEGER REFERENCES kayttaja,
+    kommentti_id INTEGER REFERENCES kommentti
+);
+
+CREATE TABLE kommentti (
+    id INTEGER PRIMARY KEY,
+    teksti TEXT
+);
+
+CREATE TABLE arviovideo (
+    id INTEGER PRIMARY KEY,
+    arvio_id INTEGER REFERENCES kommentti,
+    video_id INTEGER REFERENCES video
+);
+
+CREATE TABLE arviot (
+  id INTEGER PRIMARY KEY,
+  arvio BOOLEAN,
+);
+
+
+CREATE TABLE soittolista (
+  id INTEGER PRIMARY KEY,
+  kanava_id INTEGER REFERENCES kanava,
+  lisaa_video BOOLEAN
+);
+
+
+
+
+CREATE TABLE kanava (
+    id INTEGER PRIMARY KEY,
+    video_id INTEGER REFERENCES video,
+    kayttaja_id INTEGER REFERENCES kayttaja,
+    sivu TEXT,
+);
+
+CREATE TABLE tilaus (
+    id INTEGER PRIMARY KEY,
+    kayttaja_id INTEGER REFERENCES kayttaja,
+    kanava_id INTEGER REFERENCES kanava,
+);
+
+CREATE TABLE tekstitys (
+    id INTEGER PRIMARY KEY,
+    video_id INTEGER REFERENCES video,
+    sanat TEXT,
+    aika DATETIME
+    
+);
+
+
+CREATE TABLE seuraaja (
+  id INTEGER PRIMARY KEY,
+  tilaaja_id INTEGER REFERENCES kayttaja,
+  tilattu_id INTEGER REFERENCES kayttaja,
+  estetty BOOLEAN,
+  viesti TEXT,
+  aloittanut DATETIME
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE video (
+    id INTEGER PRIMARY KEY,
+    kayttaja_id INTEGER REFERENCES kayttaja,
+    nimi TEXT,
+    kuvaus TEXT,
+    julkaisupaiva DATETIME,
+    tekstitys TEXT,
+    katselukerrat INTEGER
+);
+CREATE TABLE kayttaja (
+    id INTEGER PRIMARY KEY,
+    kayttajanimi TEXT,
+    asuinpaikka TEXT,aloittanut
+);
+CREATE TABLE kanava (
+    id INTEGER PRIMARY KEY,
+    video_id INTEGER REFERENCES video,
+    kayttaja_id INTEGER REFERENCES kayttaja,
+    sivu TEXT,
+
+);
+CREATE TABLE arviot (
+  id INTEGER PRIMARY KEY,
+  kayttaja_id INTEGER REFERENCES kayttaja,
+  video_id INTEGER REFERENCES video,
+  arvio BOOLEAN,
+  kommentti TEXT
+);
+CREATE TABLE seuraaja (
+  id INTEGER PRIMARY KEY,
+  tilaaja_id INTEGER REFERENCES kayttaja,
+  tilattu_id INTEGER REFERENCES kayttaja,
+  estetty BOOLEAN,
+  viesti TEXT,
+  aloittanut DATETIME
+);-
