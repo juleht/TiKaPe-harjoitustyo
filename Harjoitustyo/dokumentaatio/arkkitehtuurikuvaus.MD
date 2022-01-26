@@ -2,4 +2,4 @@
 
 Sovelluksessa on yksinkertainen tekstikäyttöliittymä ja tietokanta noudattaa seuraavaa rakennetta.
 
-![tietokanta](/kuvat/paketinseuranta.png)
+![tietokanta](/Harjoitustyo/kuvat/paketinseuranta.png)
